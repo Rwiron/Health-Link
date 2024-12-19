@@ -7,7 +7,7 @@
 
             <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center">
                 <div class="grow">
-                    <h5 class="text-16">Doctor Availability</h5>
+                    <h5 class="text-16 font-bold">Doctor Availability</h5>
                 </div>
                 <ul class="flex items-center gap-2 text-sm font-normal">
                     <li>
@@ -19,47 +19,38 @@
                 </ul>
             </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="flex items-center gap-3 mb-4">
-                        <h6 class="text-15 grow">Doctor Availabilities</h6>
-                    </div>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                @forelse ($availabilities as $availability)
+                <div class="card shadow-md w-full max-w-[250px] mx-auto">
+                    <div class="card-body">
+                        <div class="flex flex-col items-center gap-3 mb-4">
+                            <img src="{{ $availability->doctor->image ? asset('storage/' . $availability->doctor->image) : asset('assets/images/avatar-10.png') }}" alt="Doctor" class="w-20 h-20 rounded-full shadow-lg">
+                            <div class="text-center">
+                                <h5 class="text-lg font-semibold">{{ $availability->doctor->name }}</h5>
+                                <p class="text-sm text-slate-500"><strong>Hospital:</strong> {{ $availability->doctor->hospital->name ?? 'Not Assigned' }}</p>
+                                <p class="text-slate-500"><strong>specialization:</strong>{{ $availability->doctor->specialization ?? 'General Practitioner' }}</p>
 
-                    <div class="-mx-5 overflow-x-auto">
-                        <table class="w-full whitespace-nowrap">
-                            <thead class="ltr:text-left rtl:text-right">
-                                <tr class="bg-slate-100 dark:bg-zink-600">
-                                    <th class="px-3.5 py-2.5 font-semibold border-b">Doctor</th>
-                                    <th class="px-3.5 py-2.5 font-semibold border-b">Date</th>
-                                    <th class="px-3.5 py-2.5 font-semibold border-b">Start Time</th>
-                                    <th class="px-3.5 py-2.5 font-semibold border-b">End Time</th>
-                                    <th class="px-3.5 py-2.5 font-semibold border-b">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($availabilities as $availability)
-                                <tr>
-                                    <td class="px-3.5 py-2.5">{{ $availability->doctor->name }}</td>
-                                    <td class="px-3.5 py-2.5">{{ $availability->available_date }}</td>
-                                    <td class="px-3.5 py-2.5">{{ $availability->start_time }}</td>
-                                    <td class="px-3.5 py-2.5">{{ $availability->end_time }}</td>
-                                    <td class="px-3.5 py-2.5">
-                                        <a href="#!" class="text-white btn bg-custom-500 border-custom-500 hover:bg-custom-600 book-now-btn" data-doctor-id="{{ $availability->doctor->id }}" data-date="{{ $availability->available_date }}" data-start-time="{{ $availability->start_time }}" data-end-time="{{ $availability->end_time }}">
-                                            Book Now
-                                        </a>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="5" class="px-3.5 py-2.5 text-center text-slate-500">
-                                        No availabilities found.
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+
+
+
+                            </div>
+                        </div>
+                        <div class="text-sm text-slate-600 mb-3">
+                            <p><strong>Date:</strong> {{ $availability->available_date }}</p>
+                            <p><strong>Time:</strong> {{ $availability->start_time }} - {{ $availability->end_time }}</p>
+                        </div>
+                        <div class="text-center">
+                            <a href="#!" class="btn bg-custom-500 text-white hover:bg-custom-600 w-full py-2 text-sm book-now-btn" data-doctor-id="{{ $availability->doctor->id }}" data-date="{{ $availability->available_date }}" data-start-time="{{ $availability->start_time }}" data-end-time="{{ $availability->end_time }}">
+                                Book Now
+                            </a>
+                        </div>
                     </div>
                 </div>
+                @empty
+                <div class="col-span-full text-center">
+                    <p class="text-slate-500">No doctor availabilities found.</p>
+                </div>
+                @endforelse
             </div>
 
             <!-- Book Appointment Modal -->
@@ -78,6 +69,7 @@
                             <div class="mb-3">
                                 <label for="appointmentDate" class="block text-sm font-medium">Appointment Date</label>
                                 <input type="date" id="appointmentDate" name="appointment_date" class="form-input w-full" required>
+                                <small class="text-slate-500" id="remainingDaysInfo"></small>
                             </div>
                             <div class="mb-3">
                                 <label for="startTime" class="block text-sm font-medium">Start Time</label>
@@ -101,24 +93,36 @@
             </div>
             <!-- End Modal -->
 
+
         </div>
     </div>
 </div>
 
 <script>
-    // Open Modal and Populate Data
     document.querySelectorAll('.book-now-btn').forEach(button => {
         button.addEventListener('click', function() {
             const doctorId = this.dataset.doctorId;
-            const date = this.dataset.date;
-            const startTime = this.dataset.startTime;
-            const endTime = this.dataset.endTime;
+            const availableDate = new Date(this.dataset.date);
+            const maxDate = new Date(availableDate);
+            maxDate.setDate(maxDate.getDate() + 5);
+            const today = new Date();
 
+            // Set minimum and maximum date for the date picker
+            const appointmentDateInput = document.getElementById('appointmentDate');
+            appointmentDateInput.min = today.toISOString().split('T')[0];
+            appointmentDateInput.max = maxDate.toISOString().split('T')[0];
+
+            // Calculate remaining days and display
+            const remainingDays = Math.ceil((availableDate - today) / (1000 * 60 * 60 * 24));
+            const remainingDaysInfo = document.getElementById('remainingDaysInfo');
+            if (remainingDays > 0) {
+                remainingDaysInfo.textContent = `You have ${remainingDays} days to book an appointment starting from ${availableDate.toDateString()}.`;
+            } else {
+                remainingDaysInfo.textContent = 'Booking is no longer available for this doctor.';
+            }
+
+            // Populate doctor ID and show modal
             document.getElementById('modalDoctorId').value = doctorId;
-            document.getElementById('appointmentDate').value = date;
-            document.getElementById('startTime').value = startTime;
-            document.getElementById('endTime').value = endTime;
-
             const modal = document.getElementById('bookAppointmentModal');
             modal.classList.remove('hidden');
         });
@@ -132,4 +136,5 @@
     });
 
 </script>
+
 @endsection

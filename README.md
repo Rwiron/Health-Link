@@ -12,8 +12,7 @@
 - Role-based access control to ensure users only access features appropriate to their role and hospital.
 
 ### 2. Hospital Registration
-- Hospitals can:
-  - Register on the platform.
+- Hospitals can register on the platform.
 
 ### 3. Appointment Scheduling
 - Patients should be able to:
@@ -56,9 +55,55 @@
 
 ---
 
+## Technology Stack
+
+- **Frontend**:
+  - React.js
+  - Redux
+  - Tailwind CSS
+  - HTML5
+  - CSS3
+  - JavaScript (ES6+)
+
+- **Backend**:
+  - Laravel
+  - Node.js
+  - Express.js
+
+- **Database**:
+  - MySQL
+  - MongoDB
+  - Mongoose
+
+- **Authentication**:
+  - JWT (JSON Web Tokens)
+  - OAuth 2.0
+
+- **Real-Time Updates**:
+  - Socket.io
+
+- **DevOps**:
+  - Docker
+  - Kubernetes
+  - Jenkins
+
+- **Cloud Services**:
+  - AWS (Amazon Web Services)
+  - Azure
+
+- **Hosting**:
+  - Hostinger
+
+- **Other Tools**:
+  - Git
+  - Postman
+  - Swagger (API Documentation)
+
+---
+
 ## Flow Journey Examples
 
-### **Patient Journey**
+### Patient Journey
 1. **Registration/Login**:
    - A patient registers on the platform through their hospital's portal or logs in using their credentials.
 2. **View Doctors**:
@@ -70,7 +115,7 @@
 5. **Location Search**:
    - The patient uses the facility finder to locate the nearest healthcare facility for their appointment.
 
-### **Doctor Journey**
+### Doctor Journey
 1. **Login**:
    - The doctor logs into the system to access their dashboard.
 2. **View Appointments**:
@@ -80,7 +125,7 @@
 4. **Patient Interaction**:
    - The doctor manages patient data, including notes and medical histories during consultations.
 
-### **Admin Journey**
+### Admin Journey
 1. **Login**:
    - The admin logs in to their hospital's dashboard.
 2. **Manage Users**:
@@ -90,7 +135,7 @@
 4. **Update Insurance Providers**:
    - The admin ensures the list of accepted insurance providers is up to date for patient reference.
 
-### **Super Admin Journey**
+### Super Admin Journey
 1. **Login**:
    - The Super Admin logs into the platform dashboard.
 2. **Monitor Hospitals**:
