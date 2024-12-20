@@ -102,16 +102,19 @@
                             <div class="relative flex items-center dropdown h-header">
                                 <button type="button" class="inline-flex justify-center relative items-center p-0 text-topbar-item transition-all w-[37.5px] h-[37.5px] duration-200 ease-linear bg-topbar rounded-md dropdown-toggle btn hover:bg-topbar-item-bg-hover hover:text-topbar-item-hover group-data-[topbar=dark]:bg-topbar-dark group-data-[topbar=dark]:hover:bg-topbar-item-bg-hover-dark group-data-[topbar=dark]:hover:text-topbar-item-hover-dark group-data-[topbar=brand]:bg-topbar-brand group-data-[topbar=brand]:hover:bg-topbar-item-bg-hover-brand group-data-[topbar=brand]:hover:text-topbar-item-hover-brand group-data-[topbar=dark]:dark:bg-zink-700 group-data-[topbar=dark]:dark:hover:bg-zink-600 group-data-[topbar=brand]:text-topbar-item-brand group-data-[topbar=dark]:dark:hover:text-zink-50 group-data-[topbar=dark]:dark:text-zink-200 group-data-[topbar=dark]:text-topbar-item-dark" id="notificationDropdown" data-bs-toggle="dropdown">
                                     <i data-lucide="bell-ring" class="inline-block w-5 h-5 stroke-1 fill-slate-100 group-data-[topbar=dark]:fill-topbar-item-bg-hover-dark group-data-[topbar=brand]:fill-topbar-item-bg-hover-brand"></i>
+                                    @if (Auth::check() && Auth::user()->role->name === 'Patient' && isset($appointments) && $appointments->count() > 0)
                                     <span class="absolute top-0 right-0 flex w-1.5 h-1.5">
                                         <span class="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-sky-400"></span>
                                         <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-sky-500"></span>
                                     </span>
+                                    @endif
                                 </button>
+
                                 <div class="absolute z-50 hidden ltr:text-left rtl:text-right bg-white rounded-md shadow-md !top-4 dropdown-menu min-w-[20rem] lg:min-w-[26rem] dark:bg-zink-600" aria-labelledby="notificationDropdown">
                                     <div class="p-4">
                                         <h6 class="mb-4 text-16">
                                             Notifications
-                                            @if (Auth::user()->role->name === 'Patient')
+                                            @if (Auth::check() && Auth::user()->role->name === 'Patient' && isset($appointments))
                                             <span class="inline-flex items-center justify-center w-5 h-5 ml-1 text-[11px] font-medium border rounded-full text-white bg-orange-500 border-orange-500">
                                                 {{ $appointments->count() }}
                                             </span>
@@ -121,7 +124,7 @@
                                         </h6>
                                     </div>
                                     <div data-simplebar="" class="max-h-[350px] overflow-y-auto">
-                                        @if (Auth::user()->role->name === 'Patient')
+                                        @if (Auth::check() && Auth::user()->role->name === 'Patient' && isset($appointments))
                                         <div class="flex flex-col gap-1" id="notification-list">
                                             @forelse ($appointments as $appointment)
                                             <a href="#" class="flex gap-3 p-4 product-item hover:bg-slate-50 dark:hover:bg-zink-500">
@@ -165,13 +168,9 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
-
                             </div>
+
+
 
                             <div class="relative items-center hidden h-header md:flex">
                                 <button data-drawer-target="customizerButton" type="button" class="inline-flex justify-center items-center p-0 text-topbar-item transition-all w-[37.5px] h-[37.5px] duration-200 ease-linear bg-topbar group-data-[topbar=dark]:text-topbar-item-dark rounded-md btn hover:bg-topbar-item-bg-hover hover:text-topbar-item-hover group-data-[topbar=dark]:bg-topbar-dark group-data-[topbar=dark]:hover:bg-topbar-item-bg-hover-dark group-data-[topbar=dark]:hover:text-topbar-item-hover-dark group-data-[topbar=brand]:bg-topbar-brand group-data-[topbar=brand]:hover:bg-topbar-item-bg-hover-brand group-data-[topbar=brand]:hover:text-topbar-item-hover-brand group-data-[topbar=dark]:dark:bg-zink-700 group-data-[topbar=dark]:dark:hover:bg-zink-600 group-data-[topbar=brand]:text-topbar-item-brand group-data-[topbar=dark]:dark:hover:text-zink-50 group-data-[topbar=dark]:dark:text-zink-200">

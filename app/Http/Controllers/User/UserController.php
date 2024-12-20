@@ -66,62 +66,7 @@ class UserController extends Controller
         }
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     try {
-    //         Log::info('Updating user', ['id' => $id, 'request' => $request->all()]);
-    //         $request->validate([
-    //             'name' => 'required|string|max:255',
-    //             'email' => 'required|email|unique:users,email,' . $id,
-    //             'password' => 'nullable|string|min:6',
-    //             'role_id' => 'required|exists:roles,id',
-    //             'insurance_id' => 'nullable|exists:insurance_providers,id',
-    //             'hospital_id' => 'nullable|exists:hospitals,id',
-    //             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //             'district' => 'nullable|string|max:255',
-    //             'sector' => 'nullable|string|max:255',
-    //             'cell' => 'nullable|string|max:255',
-    //             'province' => 'nullable|string|max:255',
-    //             'country' => 'nullable|string|max:255',
-    //         ]);
-
-    //         $user = User::findOrFail($id);
-    //         $data = $request->except(['password_confirmation', 'image']);
-
-    //         if ($request->filled('password')) {
-    //             Log::info('Updating user password');
-    //             $data['password'] = Hash::make($request->password);
-    //         }
-
-    //         if ($request->hasFile('image')) {
-    //             Log::info('Uploading new user profile image', ['user_id' => $id]);
-    //             $file = $request->file('image');
-    //             $path = $file->store('profile_images', 'public');
-    //             $data['image'] = $path;
-
-    //             if ($user->image && Storage::disk('public')->exists($user->image)) {
-    //                 Log::info('Deleting old profile image', ['path' => $user->image]);
-    //                 Storage::disk('public')->delete($user->image);
-    //             }
-    //         }
-
-    //         if ($request->has('insurance_id')) {
-    //             Log::info('Updating user insurance', ['insurance_id' => $request->insurance_id]);
-    //             $data['insurance_id'] = $request->insurance_id;
-    //         }
-
-    //         $user->update($data);
-
-    //         Toastr::success('User updated successfully.', 'Success');
-    //         Log::info('User updated successfully', ['user_id' => $id]);
-    //         return redirect()->route('user.index');
-    //     } catch (\Exception $e) {
-    //         Log::error('Error updating user: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
-    //         Toastr::error('An error occurred while updating the user.', 'Error');
-    //         return redirect()->route('user.index');
-    //     }
-    // }
-
+   
     public function update(Request $request, $id)
     {
         try {
