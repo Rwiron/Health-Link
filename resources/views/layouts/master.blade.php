@@ -511,6 +511,7 @@
 
     <script type="text/javascript" src="{{ asset('assets/js/pages/apps-calendar.init.js') }}"></script>
 
+
 </body>
 
 </html>

@@ -172,7 +172,8 @@ use Carbon\Carbon;
             </div>
         </div>
         <!--end col-->
-        <div class="col-span-12 card 2xl:col-span-4 2xl:row-span-2">
+
+        {{-- <div class="col-span-12 card 2xl:col-span-4 2xl:row-span-2">
             <div class="card-body">
                 <div class="flex items-center mb-3">
                     <h6 class="grow text-15">Order Statistics</h6>
@@ -182,18 +183,82 @@ use Carbon\Carbon;
                 </div>
                 <div id="orderStatisticsChart" class="apex-charts" data-chart-colors='["bg-purple-500", "bg-sky-500"]' dir="ltr"></div>
             </div>
+        </div> --}}
+
+        {{-- <div class="col-span-12 card 2xl:col-span-4 2xl:row-span-2">
+            <div class="card-body">
+                <div class="flex items-center mb-3">
+                    <h6 class="grow text-15">Order Statistics</h6>
+                    <div class="relative">
+                        <a href="#!" class="underline transition-all duration-200 ease-linear text-custom-500 hover:text-custom-600">
+                            View All <i data-lucide="move-right" class="inline-block align-middle size-4 ltr:ml-1 rtl:mr-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <div id="orderStatisticsChart" class="apex-charts"></div>
+            </div>
+        </div> --}}
+
+        {{-- <div class="col-span-12 card 2xl:col-span-4 2xl:row-span-2">
+            <div class="card-body">
+                <div class="flex items-center mb-3">
+                    <h6 class="grow text-15">Order Statistics</h6>
+                    <div class="relative">
+                        <a href="#!" class="underline transition-all duration-200 ease-linear text-custom-500 hover:text-custom-600">
+                            View All <i data-lucide="move-right" class="inline-block align-middle size-4 ltr:ml-1 rtl:mr-1"></i>
+                        </a>
+                    </div>
+                </div>
+                <div id="orderStatisticsChart" class="apex-charts"></div>
+            </div>
         </div>
+ --}}
+
+        {{-- <div class="col-span-12 card 2xl:col-span-4 2xl:row-span-2">
+            <div class="card-body">
+                <div class="flex items-center mb-3">
+                    <h6 class="grow text-15">Order Statistics</h6>
+                    <div class="relative">
+                        <a href="#!" class="underline transition-all duration-200 ease-linear text-custom-500 hover:text-custom-600">View All <i data-lucide="move-right" class="inline-block align-middle size-4 ltr:ml-1 rtl:mr-1"></i></a>
+                    </div>
+                </div>
+                <div id="orderStatisticsChart" class="apex-charts"></div>
+            </div>
+        </div> --}}
+
+
+        <div class="col-span-12 card 2xl:col-span-4 2xl:row-span-2">
+            <div class="card-body">
+                <div class="flex items-center mb-3">
+                    <h6 class="grow text-15">Order Statistics</h6>
+                    <div class="relative">
+                        {{-- <a href="#!" class="underline transition-all duration-200 ease-linear text-custom-500 hover:text-custom-600">View All
+                            <i data-lucide="move-right" class="inline-block align-middle size-4 ltr:ml-1 rtl:mr-1"></i>
+                        </a> --}}
+                    </div>
+                </div>
+                <div id="simplePie" class="apex-charts" data-chart-colors='["bg-custom-500", "bg-orange-500", "bg-green-500"]' dir="ltr"></div>
+            </div>
+        </div>
+
+
+
+
+
+
         <!--end col-->
 
-        <div class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-2">
+        {{-- <div class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-2">
             <div class="text-center card-body">
                 <div class="flex items-center justify-center mx-auto rounded-full size-14 bg-custom-100 text-custom-500 dark:bg-custom-500/20">
-                    <i data-lucide="wallet-2"></i>
+                    <i data-lucide="stethoscope"></i>
                 </div>
                 <h5 class="mt-4 mb-2"><span>{{ $doctorsCount }}</span></h5>
                 <p class="text-slate-500 dark:text-zink-200">Total Doctors</p>
             </div>
-        </div>
+        </div> --}}
+
+
         <!--end col-->
         <div class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-2">
             <div class="text-center card-body">
@@ -214,19 +279,45 @@ use Carbon\Carbon;
                 <h5 class="mt-4 mb-2"><span>{{ $appointmentsCount }}</span></h5>
                 <p class="text-slate-500 dark:text-zink-200">Total Appointments</p>
             </div>
-
         </div>
         <!--end col-->
+
+
+        <!-- Accepted Appointments Card -->
+        <div class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-2">
+            <div class="text-center card-body">
+                <div class="flex items-center justify-center mx-auto text-green-500 bg-green-100 rounded-full size-14 dark:bg-green-500/20">
+                    <i data-lucide="check-circle"></i>
+                </div>
+                <h5 class="mt-4 mb-2"><span>{{ $acceptedAppointmentsCount }}</span></h5>
+                <p class="text-slate-500 dark:text-zink-200">Accepted</p>
+            </div>
+        </div>
+
+
+        <!-- Declined Appointments Card -->
+        <div class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-2">
+            <div class="text-center card-body">
+                <div class="flex items-center justify-center mx-auto text-yellow-500 bg-yellow-100 rounded-full size-14 dark:bg-yellow-500/20">
+                    <i data-lucide="clock"></i>
+                </div>
+                <h5 class="mt-4 mb-2"><span>{{ $pendingAppointmentsCount }}</span></h5>
+                <p class="text-slate-500 dark:text-zink-200">Pending</p>
+            </div>
+        </div>
+
+        <!-- Cancelled Appointments Card -->
         <div class="col-span-12 card md:col-span-6 lg:col-span-3 2xl:col-span-2">
             <div class="text-center card-body">
                 <div class="flex items-center justify-center mx-auto text-red-500 bg-red-100 rounded-full size-14 dark:bg-red-500/20">
-                    <i data-lucide="package-x"></i>
+                    <i data-lucide="x-circle"></i>
                 </div>
-                <h5 class="mt-4 mb-2"><span class="counter-value" data-target="3519">0</span></h5>
+                <h5 class="mt-4 mb-2"><span>{{ $cancelledAppointmentsCount }}</span></h5>
                 <p class="text-slate-500 dark:text-zink-200">Cancelled</p>
             </div>
         </div>
-        <!--end col-->
+
+
         <div class="col-span-12 card 2xl:col-span-12">
             <div class="card-body">
                 <div class="grid items-center grid-cols-1 gap-3 mb-5 2xl:grid-cols-12">
@@ -257,9 +348,10 @@ use Carbon\Carbon;
                                 </th>
                                 <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-y border-slate-200 dark:border-zink-500">Appointment ID</th>
                                 <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-y border-slate-200 dark:border-zink-500">Patient Name</th>
+                                <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-y border-slate-200 dark:border-zink-500">Patient Email</th>
                                 <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-y border-slate-200 dark:border-zink-500">Appointment Date</th>
                                 <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-y border-slate-200 dark:border-zink-500">Status</th>
-                                <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-y border-slate-200 dark:border-zink-500">Action</th>
+                                {{-- <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-y border-slate-200 dark:border-zink-500">Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -271,18 +363,39 @@ use Carbon\Carbon;
                                 <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500">
                                     #{{ $appointment->id }}
                                 </td>
+
+
+
                                 <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500">
                                     {{ $appointment->patient->name ?? 'N/A' }}
                                 </td>
+
+                                <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500">
+                                    {{ $appointment->patient->email ?? 'N/A' }}
+                                </td>
+
                                 <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500">
                                     {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M, Y') }}
                                 </td>
-                                <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500">
+                                {{-- <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500">
                                     {{ ucfirst($appointment->status) }}
-                                </td>
+                                </td> --}}
                                 <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500">
-                                    <a href="#" class="text-blue-500 hover:underline">View</a>
+                                    <form action="{{ route('doctor.appointments.updateStatus') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
+                                        <select name="status" class="form-select border border-slate-200 dark:border-zink-500" onchange="this.form.submit()">
+                                            <option value="pending" {{ $appointment->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                            <option value="confirmed" {{ $appointment->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                            <option value="cancelled" {{ $appointment->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                        </select>
+                                    </form>
                                 </td>
+
+
+                                {{-- <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500">
+                                    <a href="#" class="text-blue-500 hover:underline">View</a>
+                                </td> --}}
                             </tr>
                             @endforeach
                         </tbody>
@@ -301,8 +414,44 @@ use Carbon\Carbon;
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch("{{ route('order.statistics') }}") // Replace with the correct route for fetching statistics
+            .then(response => response.json())
+            .then(data => {
+                var options = {
+                    chart: {
+                        type: 'pie'
+                        , height: 350
+                    , }
+                    , labels: data.labels, // Dynamic labels from your backend
+                    series: data.series, // Dynamic series data from your backend
+                    colors: ['#6a5acd', '#00bfff', '#ff4500'], // Colors for Pending, Confirmed, Cancelled
+                    legend: {
+                        position: 'bottom'
+                    , }
+                    , dataLabels: {
+                        enabled: true
+                        , formatter: function(val) {
+                            return val.toFixed(1) + '%';
+                        }
+                    }
+                    , title: {
+                        text: 'Appointment Statistics'
+                        , align: 'center'
+                    , }
+                , };
+
+                var chart = new ApexCharts(document.querySelector("#simplePie"), options);
+                chart.render();
+            })
+            .catch(error => console.error('Error fetching statistics:', error));
+    });
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
-</div>
-</div>
+
 @endsection

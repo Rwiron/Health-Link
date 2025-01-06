@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Doctor\DoctorAvailabilityController;
 use App\Http\Controllers\Doctor\DoctorController;
+use App\Http\Controllers\Doctor\DoctorReportController;
 use App\Http\Controllers\Hospital\HospitalManagementController;
 use App\Http\Controllers\Insurance\InsuranceProviderController;
 use App\Http\Controllers\Patient\PatientController;
@@ -17,6 +18,12 @@ use App\Http\Controllers\Designer\DesignerController;
 use App\Http\Controllers\Guest\GuestController;
 
 //---------------------Auth route--------------------
+
+
+Route::get('/', function () {
+    return view('client.index');
+});
+
 
 // Login routes
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -71,6 +78,16 @@ Route::middleware(['auth', 'checkrole:Admin'])->group(function () {
 // Doctor Routes
 Route::middleware(['auth', 'checkrole:Doctor'])->group(function () {
     Route::get('/doctor/dashboard', [DoctorController::class, 'dashboard'])->name('doctor.dashboard');
+
+    Route::post('/doctor/appointments/update-status', [DoctorController::class, 'updateStatus'])->name('doctor.appointments.updateStatus');
+
+    Route::get('/order-statistics', [DoctorController::class, 'getOrderStatistics'])->name('order.statistics');
+
+    Route::get('/doctor/report', [DoctorReportController::class, 'index'])->name('doctor.report');
+
+    Route::get('/doctor/invoice/{id}', [DoctorReportController::class, 'invoice'])->name('doctor.invoice');
+
+    Route::get('/doctor/report/{id?}', [DoctorReportController::class, 'index'])->name('doctor.report');
 });
 
 
@@ -90,9 +107,6 @@ Route::middleware(['auth', 'checkrole:Patient'])->group(function () {
 
 
 //---------------------Testing View--------------------
-Route::get('/', function () {
-    return view('auth.login');
-});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile');
@@ -106,3 +120,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
     Route::delete('/appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 });
+
+
+
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
