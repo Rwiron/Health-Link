@@ -25,8 +25,11 @@ class Hospital extends Model
         'organization_type',
         'logo',
         'latitude',
-        'longitude', 
+        'longitude',
+        'province',
+        'district',
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.

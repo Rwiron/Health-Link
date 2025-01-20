@@ -7,7 +7,7 @@
 
             <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center">
                 <div class="grow">
-                    <h5 class="text-16">Hospital Management</h5>
+                    <h5 class="text-16">Hospitals Management</h5>
                 </div>
                 <ul class="flex items-center gap-2 text-sm font-normal">
                     <li>
@@ -24,9 +24,10 @@
                     <div class="flex items-center gap-3 mb-4">
                         <h6 class="text-15 grow">Hospitals ({{ $hospitals->count() }})</h6>
                         <div class="shrink-0">
-                            <a href="#!" data-modal-target="addHospitalModal" type="button" class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600">
-                                <i data-lucide="plus" class="inline-block size-4"></i> <span class="align-middle">Add Hospital</span>
-                            </a>
+                            <button type="button" data-modal-target="addHospitalModal" class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:shadow-lg transform transition-all duration-200 hover:-translate-y-0.5 focus:ring-2 focus:ring-custom-200 active:bg-custom-700" onclick="document.getElementById('addHospitalModal').classList.remove('hidden')">
+                                <i data-lucide="plus" class="inline-block size-4"></i>
+                                <span class="align-middle">Add Hospital</span>
+                            </button>
                         </div>
                     </div>
 
@@ -36,7 +37,9 @@
                                 <tr class="bg-slate-100 dark:bg-zink-600">
                                     <th class="px-3.5 py-2.5 font-semibold border-b">Logo</th>
                                     <th class="px-3.5 py-2.5 font-semibold border-b">Name</th>
-                                    <th class="px-3.5 py-2.5 font-semibold border-b">Address</th>
+                                    <th class="px-3.5 py-2.5 font-semibold border-b">Location</th>
+                                    <th class="px-3.5 py-2.5 font-semibold border-b">Province</th>
+                                    <th class="px-3.5 py-2.5 font-semibold border-b">District</th>
                                     <th class="px-3.5 py-2.5 font-semibold border-b">Phone</th>
                                     <th class="px-3.5 py-2.5 font-semibold border-b">Organization Type</th>
                                     <th class="px-3.5 py-2.5 font-semibold border-b">Created at</th>
@@ -56,19 +59,24 @@
                                     </td>
                                     <td class="px-3.5 py-2.5">{{ $hospital->name }}</td>
                                     <td class="px-3.5 py-2.5">{{ $hospital->address }}</td>
+                                    <td class="px-3.5 py-2.5">{{ $hospital->province }}</td>
+
+                                    <td class="px-3.5 py-2.5">{{ $hospital->district }}</td>
+
                                     <td class="px-3.5 py-2.5">{{ $hospital->phone }}</td>
                                     <td class="px-3.5 py-2.5">{{ $hospital->organization_type }}</td>
                                     <td class="px-3.5 py-2.5">{{ $hospital->created_at }}</td>
 
                                     <td class="px-3.5 py-2.5">
                                         <div class="flex gap-3">
-                                            <a href="#!" data-id="{{ $hospital->id }}" data-name="{{ $hospital->name }}" data-address="{{ $hospital->address }}" data-phone="{{ $hospital->phone }}" data-organization-type="{{ $hospital->organization_type }}" data-logo="{{ $hospital->logo }}" data-latitude="{{ $hospital->latitude }}" data-longitude="{{ $hospital->longitude }}" data-modal-target="editHospitalModal" class="edit-hospital-btn">
-                                                Edit
+                                            <a href="#!" data-id="{{ $hospital->id }}" data-name="{{ $hospital->name }}" data-address="{{ $hospital->address }}" data-phone="{{ $hospital->phone }}" data-organization-type="{{ $hospital->organization_type }}" data-logo="{{ $hospital->logo }}" data-province="{{ $hospital->province }}" data-district="{{ $hospital->district }}" data-modal-target="editHospitalModal" class="edit-hospital-btn">
+                                                <i data-lucide="pencil" class="size-4"></i>
                                             </a>
 
 
+
                                             <a href="#!" data-id="{{ $hospital->id }}" data-modal-target="deleteHospitalModal" class="delete-hospital-btn">
-                                                Delete
+                                                <i data-lucide="trash-2" class="size-4"></i>
                                             </a>
                                         </div>
                                     </td>
@@ -109,7 +117,7 @@
                             </div>
                             <div class="xl:col-span-12">
                                 <label for="organizationType" class="inline-block mb-2 text-base font-medium">Organization Type</label>
-                                <select id="organizationType" name="organization_type" class="form-input">
+                                <select id="organizationType" name="organization_type" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500">
                                     <option value="Private">Private</option>
                                     <option value="Public">Public</option>
                                     <option value="Mixture">Mixture</option>
@@ -117,8 +125,29 @@
                             </div>
                             <div class="xl:col-span-12">
                                 <label for="hospitalLogo" class="inline-block mb-2 text-base font-medium">Logo</label>
-                                <input type="file" id="hospitalLogo" name="logo" class="form-input">
+                                <input type="file" id="hospitalLogo" name="logo" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500">
                             </div>
+
+                            <div class="xl:col-span-12">
+                                <label for="editProvince" class="inline-block mb-2 text-base font-medium">Province</label>
+                                <select id="editProvince" name="province" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500">
+                                    <option value="">Select Province</option>
+                                    <option value="City of Kigali">City of Kigali</option>
+                                    <option value="Eastern Province">Eastern Province</option>
+                                    <option value="Northern Province">Northern Province</option>
+                                    <option value="Southern Province">Southern Province</option>
+                                    <option value="Western Province">Western Province</option>
+                                </select>
+                            </div>
+
+
+                            <div class="xl:col-span-12">
+                                <label for="editDistrict" class="inline-block mb-2 text-base font-medium">District</label>
+                                <select id="editDistrict" name="district" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500">
+                                    <option value="">Select District</option>
+                                </select>
+                            </div>
+
 
                             <!-- Map Frame -->
                             <div class="xl:col-span-12">
@@ -181,6 +210,28 @@
                                 <input type="file" id="editHospitalLogo" name="logo" class="form-input">
                                 <img id="currentLogo" src="" alt="Current Logo" class="mt-2 h-16 rounded-md shadow-md">
                             </div>
+
+
+                            <div class="xl:col-span-12">
+                                <label for="editProvince" class="inline-block mb-2 text-base font-medium">Province</label>
+                                <select id="editProvince" name="province" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500">
+                                    <option value="">Select Province</option>
+                                    <option value="City of Kigali">City of Kigali</option>
+                                    <option value="Eastern Province">Eastern Province</option>
+                                    <option value="Northern Province">Northern Province</option>
+                                    <option value="Southern Province">Southern Province</option>
+                                    <option value="Western Province">Western Province</option>
+                                </select>
+                            </div>
+
+
+                            <div class="xl:col-span-12">
+                                <label for="editDistrict" class="inline-block mb-2 text-base font-medium">District</label>
+                                <select id="editDistrict" name="district" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500">
+                                    <option value="">Select District</option>
+                                </select>
+                            </div>
+
 
                             <!-- Map Frame -->
                             <div class="xl:col-span-12">
@@ -421,6 +472,61 @@
             modal.classList.remove('hidden');
         });
     });
+
+</script>
+
+<script>
+    // District data organized by province
+    const districtsByProvince = {
+        'City of Kigali': ['Gasabo', 'Kicukiro', 'Nyarugenge']
+        , 'Eastern Province': ['Bugesera', 'Gatsibo', 'Kayonza', 'Kirehe', 'Ngoma', 'Nyagatare', 'Rwamagana']
+        , 'Northern Province': ['Burera', 'Gakenke', 'Gicumbi', 'Musanze', 'Rulindo']
+        , 'Southern Province': ['Gisagara', 'Huye', 'Kamonyi', 'Muhanga', 'Nyamagabe', 'Nyanza', 'Nyaruguru', 'Ruhango']
+        , 'Western Province': ['Karongi', 'Ngororero', 'Nyabihu', 'Nyamasheke', 'Rubavu', 'Rusizi', 'Rutsiro']
+    };
+
+    // Function to update districts based on selected province
+    function updateDistricts(provinceSelect, districtSelect) {
+        const selectedProvince = provinceSelect.value;
+        const districts = districtsByProvince[selectedProvince] || [];
+
+        // Clear existing options
+        districtSelect.innerHTML = '<option value="">Select District</option>';
+
+        // Add new options
+        districts.forEach(district => {
+            const option = document.createElement('option');
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+        });
+    }
+
+    // Add event listener for province select in add modal
+    document.addEventListener('DOMContentLoaded', function() {
+        // For Add Modal
+        const addProvinceSelect = document.querySelector('#addHospitalModal #editProvince');
+        const addDistrictSelect = document.querySelector('#addHospitalModal #editDistrict');
+
+        if (addProvinceSelect) {
+            addProvinceSelect.addEventListener('change', function() {
+                updateDistricts(this, addDistrictSelect);
+            });
+        }
+
+        // For Edit Modal
+        const editProvinceSelect = document.querySelector('#editHospitalModal #editProvince');
+        const editDistrictSelect = document.querySelector('#editHospitalModal #editDistrict');
+
+        if (editProvinceSelect) {
+            editProvinceSelect.addEventListener('change', function() {
+                updateDistricts(this, editDistrictSelect);
+            });
+        }
+    });
+
+    // Debug logging
+    console.log('Script loaded');
 
 </script>
 

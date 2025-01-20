@@ -47,10 +47,10 @@
                                 </p>
                                 <div class="flex justify-center mt-4 gap-2">
                                     <a href="#!" data-id="{{ $provider->id }}" data-name="{{ $provider->name }}" data-hospital-id="{{ $provider->hospital_id }}" data-image="{{ $provider->image }}" data-modal-target="editInsuranceModal" class="edit-insurance-btn text-blue-500">
-                                        Edit
+                                        <i data-lucide="pencil" class="size-4"></i>
                                     </a>
                                     <a href="#!" data-id="{{ $provider->id }}" data-modal-target="deleteInsuranceModal" class="delete-insurance-btn text-red-500">
-                                        Delete
+                                        <i data-lucide="trash-2" class="size-4"></i>
                                     </a>
                                 </div>
                             </div>

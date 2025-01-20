@@ -51,10 +51,10 @@
                                     <td class="px-3.5 py-2.5">
                                         <div class="flex gap-3">
                                             <a href="#!" data-id="{{ $availability->id }}" data-doctor-id="{{ $availability->doctor_id }}" data-date="{{ $availability->available_date }}" data-start-time="{{ $availability->start_time }}" data-end-time="{{ $availability->end_time }}" data-modal-target="editAvailabilityModal" class="edit-availability-btn">
-                                                Edit
+                                                <i data-lucide="edit-2" class="size-4"></i>
                                             </a>
-                                            <a href="#!" data-id="{{ $availability->id }}" data-modal-target="deleteAvailabilityModal" class="delete-availability-btn">
-                                                Delete
+                                            <a href="#!" data-id="{{ $availability->id }}" data-modal-target="deleteAvailabilityModal" class="delete-availability-btn text-red-500">
+                                                <i data-lucide="trash-2" class="size-4"></i>
                                             </a>
                                         </div>
                                     </td>

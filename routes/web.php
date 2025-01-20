@@ -8,6 +8,7 @@ use App\Http\Controllers\Doctor\DoctorReportController;
 use App\Http\Controllers\Hospital\HospitalManagementController;
 use App\Http\Controllers\Insurance\InsuranceProviderController;
 use App\Http\Controllers\Patient\PatientController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Superadmin\SuperadminController;
 use App\Http\Controllers\Designer\DesignerController;
 use App\Http\Controllers\Guest\GuestController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 //---------------------Auth route--------------------
 
@@ -33,6 +35,17 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 // Register routes
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
+
+
+
+// forget password
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
+
+
 
 //---------------------Superadmin route--------------------
 Route::middleware(['auth', 'checkrole:SuperAdmin'])->group(function () {
@@ -64,6 +77,17 @@ Route::middleware(['auth', 'checkrole:SuperAdmin'])->group(function () {
         Route::post('/availability', [DoctorAvailabilityController::class, 'store'])->name('availability.store');
         Route::put('/availability/{id}', [DoctorAvailabilityController::class, 'update'])->name('availability.update');
         Route::delete('/availability/{id}', [DoctorAvailabilityController::class, 'destroy'])->name('availability.destroy');
+    });
+
+
+
+    Route::prefix('services')->name('services.')->group(function () {
+        Route::get('/', [ServiceController::class, 'index'])->name('index');
+        Route::get('/create', [ServiceController::class, 'create'])->name('create');
+        Route::post('/', [ServiceController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [ServiceController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [ServiceController::class, 'update'])->name('update');
+        Route::delete('/{id}', [ServiceController::class, 'destroy'])->name('destroy');
     });
 });
 

@@ -67,13 +67,12 @@
                                     <td class="px-3.5 py-2.5">{{ $user->created_at }}</td>
                                     <td class="px-3.5 py-2.5">
                                         <div class="flex gap-3">
-                                            <a href="#!" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role-id="{{ $user->role_id }}" data-hospital-id="{{ $user->hospital_id }}" data-insurance-id="{{ $user->insurance_id }}" data-image="{{ $user->image }}" data-modal-target="editUserModal" class="edit-user-btn">
-                                                Edit
+                                            <a href="#!" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role-id="{{ $user->role_id }}" data-hospital-id="{{ $user->hospital_id }}" data-insurance-id="{{ $user->insurance_id }}" data-image="{{ $user->image }}" data-modal-target="editUserModal" class="edit-user-btn text-blue-500">
+                                                <i data-lucide="pencil" class="size-4"></i>
                                             </a>
 
-
-                                            <a href="#!" data-id="{{ $user->id }}" data-modal-target="deleteUserModal" class="delete-user-btn">
-                                                Delete
+                                            <a href="#!" data-id="{{ $user->id }}" data-modal-target="deleteUserModal" class="delete-user-btn text-red-500">
+                                                <i data-lucide="trash-2" class="size-4"></i>
                                             </a>
                                         </div>
                                     </td>

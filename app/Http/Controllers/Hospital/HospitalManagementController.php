@@ -19,19 +19,18 @@ class HospitalManagementController extends Controller
         return view('hospital.index', compact('hospitals'));
     }
 
-    /**
-     * Store a newly created hospital in storage.
-     */
-    public function store(Request $request, $id)
+
+    public function store(Request $request)
     {
         try {
             $request->validate([
-
-                'name' => 'required|max:255|unique:hospitals,name,' . $id,
+                'name' => 'required|max:255|unique:hospitals,name',
                 'address' => 'required|max:500|string',
                 'phone' => 'required|regex:/^\+?[0-9\s\-()]{7,15}$/',
                 'organization_type' => 'required|in:Private,Public,Mixture',
                 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'province' => 'nullable|string|max:255',
+                'district' => 'nullable|string|max:255',
                 'location' => 'nullable|string|max:500',
             ]);
 
