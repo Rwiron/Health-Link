@@ -18,6 +18,7 @@ use App\Http\Controllers\Superadmin\SuperadminController;
 use App\Http\Controllers\Designer\DesignerController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Client\ClientHospitalController;
 
 //---------------------Auth route--------------------
 
@@ -125,6 +126,12 @@ Route::middleware(['auth', 'checkrole:Patient'])->group(function () {
         ->name('appointment.doctor-availability.index');
 
     Route::post('/appointment/store', [AppointmentController::class, 'store'])->name('doctor.appointment.store');
+
+
+    Route::prefix('client/hospitals')->name('client.hospitals.')->group(function () {
+        Route::get('/', [ClientHospitalController::class, 'index'])->name('index');
+        Route::post('/search', [ClientHospitalController::class, 'search'])->name('search');
+    });
 });
 
 
