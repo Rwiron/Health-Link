@@ -44,7 +44,7 @@ class DoctorAvailability extends Model
     {
         return $this->belongsTo(User::class, 'doctor_id');
     }
-    
+
 
     /**
      * Accessors & Mutators
@@ -72,5 +72,10 @@ class DoctorAvailability extends Model
     public function setAvailableDateAttribute($value)
     {
         $this->attributes['available_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function scopeAvailableOn($query, $date)
+    {
+        return $query->where('available_date', $date);
     }
 }

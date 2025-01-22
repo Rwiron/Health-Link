@@ -59,4 +59,12 @@ class InsuranceProvider extends Model
     {
         $this->attributes['name'] = strtolower(trim($value));
     }
+
+
+    public function scopeByHospital($query, $hospitalId)
+    {
+        return $query->where('hospital_id', $hospitalId);
+    }
+
+
 }

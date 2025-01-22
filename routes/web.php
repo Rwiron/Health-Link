@@ -127,10 +127,12 @@ Route::middleware(['auth', 'checkrole:Patient'])->group(function () {
 
     Route::post('/appointment/store', [AppointmentController::class, 'store'])->name('doctor.appointment.store');
 
-
     Route::prefix('client/hospitals')->name('client.hospitals.')->group(function () {
         Route::get('/', [ClientHospitalController::class, 'index'])->name('index');
         Route::post('/search', [ClientHospitalController::class, 'search'])->name('search');
+
+        // Fix the show route
+        Route::get('/{id}', [ClientHospitalController::class, 'show'])->name('show');
     });
 });
 

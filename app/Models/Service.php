@@ -27,4 +27,17 @@ class Service extends Model
     {
         return $this->belongsTo(Hospital::class);
     }
+
+    // Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('status', true);
+    }
+
+    public function scopeCategory($query, $category)
+    {
+        return $query->where('category', $category);
+    }
+
+    
 }

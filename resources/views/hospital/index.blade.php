@@ -69,7 +69,8 @@
 
                                     <td class="px-3.5 py-2.5">
                                         <div class="flex gap-3">
-                                            <a href="#!" data-id="{{ $hospital->id }}" data-name="{{ $hospital->name }}" data-address="{{ $hospital->address }}" data-phone="{{ $hospital->phone }}" data-organization-type="{{ $hospital->organization_type }}" data-logo="{{ $hospital->logo }}" data-province="{{ $hospital->province }}" data-district="{{ $hospital->district }}" data-modal-target="editHospitalModal" class="edit-hospital-btn">
+                                            <a href="#!" data-id="{{ $hospital->id }}" data-name="{{ $hospital->name }}" data-address="{{ $hospital->address }}" data-phone="{{ $hospital->phone }}" data-organization-type="{{ $hospital->organization_type }}" data-logo="{{ $hospital->logo }}" data-province="{{ $hospital->province }}" data-district="{{ $hospital->district }}" data-map-iframe="{{ $hospital->map_iframe }}" data-modal-target="editHospitalModal" class="edit-hospital-btn">
+
                                                 <i data-lucide="pencil" class="size-4"></i>
                                             </a>
 
@@ -147,6 +148,12 @@
                                     <option value="">Select District</option>
                                 </select>
                             </div>
+
+                            <div class="xl:col-span-12">
+                                <label for="hospitalIframe" class="inline-block mb-2 text-base font-medium">Google Maps Iframe</label>
+                                <textarea id="hospitalIframe" name="map_iframe" rows="4" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Paste the Google Maps iframe here"></textarea>
+                            </div>
+
 
 
                             <!-- Map Frame -->
@@ -231,6 +238,13 @@
                                     <option value="">Select District</option>
                                 </select>
                             </div>
+
+                            <div class="xl:col-span-12">
+                                <label for="editHospitalIframe" class="inline-block mb-2 text-base font-medium">Google Maps Iframe</label>
+                                <textarea id="editHospitalIframe" name="map_iframe" rows="4" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Paste the Google Maps iframe here"></textarea>
+                            </div>
+
+
 
 
                             <!-- Map Frame -->
@@ -429,6 +443,50 @@
     }
 
     // Edit Hospital Modal Logic
+    // document.querySelectorAll('.edit-hospital-btn').forEach(button => {
+    //     button.addEventListener('click', function() {
+    //         const modal = document.getElementById('editHospitalModal');
+
+    //         // Fetch data attributes
+    //         const id = this.dataset.id;
+    //         const name = this.dataset.name;
+    //         const address = this.dataset.address;
+    //         const phone = this.dataset.phone;
+    //         const organizationType = this.dataset.organizationType;
+    //         const logo = this.dataset.logo;
+    //         const latitude = this.dataset.latitude ? parseFloat(this.dataset.latitude) : null;
+    //         const longitude = this.dataset.longitude ? parseFloat(this.dataset.longitude) : null;
+
+    //         // Populate modal fields
+    //         document.getElementById('editHospitalId').value = id;
+    //         document.getElementById('editHospitalName').value = name;
+    //         document.getElementById('editHospitalAddress').value = address;
+    //         document.getElementById('editHospitalPhone').value = phone;
+    //         document.getElementById('editOrganizationType').value = organizationType;
+
+    //         // Handle logo display
+    //         const logoPreview = document.getElementById('currentLogo');
+    //         if (logo) {
+    //             logoPreview.src = `/storage/${logo}`; // Adjust the path if necessary
+    //             logoPreview.classList.remove('hidden');
+    //         } else {
+    //             logoPreview.src = '';
+    //             logoPreview.classList.add('hidden');
+    //         }
+
+    //         // Initialize the map
+    //         setTimeout(() => { // Delay to ensure the modal is rendered
+    //             initializeEditMap(latitude, longitude);
+    //         }, 300);
+
+    //         // Set the form action dynamically
+    //         document.getElementById('edit-hospital-form').action = `/hospital/${id}`;
+
+    //         // Show the modal
+    //         modal.classList.remove('hidden');
+    //     });
+    // });
+
     document.querySelectorAll('.edit-hospital-btn').forEach(button => {
         button.addEventListener('click', function() {
             const modal = document.getElementById('editHospitalModal');
@@ -440,6 +498,7 @@
             const phone = this.dataset.phone;
             const organizationType = this.dataset.organizationType;
             const logo = this.dataset.logo;
+            const mapIframe = this.dataset.mapIframe; // Fetch the iframe
             const latitude = this.dataset.latitude ? parseFloat(this.dataset.latitude) : null;
             const longitude = this.dataset.longitude ? parseFloat(this.dataset.longitude) : null;
 
@@ -449,11 +508,12 @@
             document.getElementById('editHospitalAddress').value = address;
             document.getElementById('editHospitalPhone').value = phone;
             document.getElementById('editOrganizationType').value = organizationType;
+            document.getElementById('editHospitalIframe').value = mapIframe; // Set the iframe field
 
             // Handle logo display
             const logoPreview = document.getElementById('currentLogo');
             if (logo) {
-                logoPreview.src = `/storage/${logo}`; // Adjust the path if necessary
+                logoPreview.src = `/storage/${logo}`;
                 logoPreview.classList.remove('hidden');
             } else {
                 logoPreview.src = '';
@@ -461,7 +521,7 @@
             }
 
             // Initialize the map
-            setTimeout(() => { // Delay to ensure the modal is rendered
+            setTimeout(() => {
                 initializeEditMap(latitude, longitude);
             }, 300);
 

@@ -60,15 +60,15 @@
                     <div class="card-body">
                         <div id="results">
                             <div class="overflow-x-auto">
-                                <table class="w-full">
-                                    <thead class="bg-slate-100 dark:bg-zink-600">
-                                        <tr>
-                                            <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 text-slate-800 dark:text-zink-50">Hospital Name</th>
-                                            <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 text-slate-800 dark:text-zink-50">Address</th>
-                                            <th class="px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 text-slate-800 dark:text-zink-50">Actions</th>
+                                <table class="w-full whitespace-nowrap">
+                                    <thead>
+                                        <tr class="text-left bg-slate-100 dark:bg-zink-600">
+                                            <th class="px-6 py-3 text-sm font-semibold text-slate-800 dark:text-zink-50">Hospital Name</th>
+                                            <th class="px-6 py-3 text-sm font-semibold text-slate-800 dark:text-zink-50">Address</th>
+                                            <th class="px-6 py-3 text-sm font-semibold text-center text-slate-800 dark:text-zink-50">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="hospitalList">
+                                    <tbody id="hospitalList" class="divide-y divide-slate-200 dark:divide-zink-500">
                                         <!-- Results will be populated here -->
                                     </tbody>
                                 </table>
@@ -83,11 +83,11 @@
 
 <script>
     const districtsByProvince = {
-        'City of Kigali': ['Gasabo', 'Kicukiro', 'Nyarugenge'],
-        'Eastern Province': ['Bugesera', 'Gatsibo', 'Kayonza', 'Kirehe', 'Ngoma', 'Nyagatare', 'Rwamagana'],
-        'Northern Province': ['Burera', 'Gakenke', 'Gicumbi', 'Musanze', 'Rulindo'],
-        'Southern Province': ['Gisagara', 'Huye', 'Kamonyi', 'Muhanga', 'Nyamagabe', 'Nyanza', 'Nyaruguru', 'Ruhango'],
-        'Western Province': ['Karongi', 'Ngororero', 'Nyabihu', 'Nyamasheke', 'Rubavu', 'Rusizi', 'Rutsiro']
+        'City of Kigali': ['Gasabo', 'Kicukiro', 'Nyarugenge']
+        , 'Eastern Province': ['Bugesera', 'Gatsibo', 'Kayonza', 'Kirehe', 'Ngoma', 'Nyagatare', 'Rwamagana']
+        , 'Northern Province': ['Burera', 'Gakenke', 'Gicumbi', 'Musanze', 'Rulindo']
+        , 'Southern Province': ['Gisagara', 'Huye', 'Kamonyi', 'Muhanga', 'Nyamagabe', 'Nyanza', 'Nyaruguru', 'Ruhango']
+        , 'Western Province': ['Karongi', 'Ngororero', 'Nyabihu', 'Nyamasheke', 'Rubavu', 'Rusizi', 'Rutsiro']
     };
 
     document.getElementById('province').addEventListener('change', function() {
@@ -110,44 +110,46 @@
         const district = document.getElementById('district').value;
 
         fetch('/client/hospitals/search', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                province,
-                district
+                method: 'POST'
+                , headers: {
+                    'Content-Type': 'application/json'
+                    , 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+                , body: JSON.stringify({
+                    province
+                    , district
+                })
             })
-        })
-        .then(response => response.json())
-        .then(data => {
-            const list = document.getElementById('hospitalList');
-            list.innerHTML = '';
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('hospitalList');
+                list.innerHTML = '';
 
-            if (data.data.length > 0) {
-                data.data.forEach(hospital => {
-                    list.innerHTML += `
+                if (data.data.length > 0) {
+                    data.data.forEach(hospital => {
+                        list.innerHTML += `
                         <tr class="border-b border-slate-200 dark:border-zink-500">
                             <td class="px-3.5 py-2.5 text-slate-700 dark:text-zink-100">${hospital.name}</td>
                             <td class="px-3.5 py-2.5 text-slate-700 dark:text-zink-100">${hospital.address}</td>
                             <td class="px-3.5 py-2.5">
-                                <a href="#" class="text-custom-500 hover:text-custom-600">View Details</a>
+                                <a href="/client/hospitals/${hospital.id}" class="text-custom-500 hover:text-custom-600">View Details</a>
+
                             </td>
                         </tr>
                     `;
-                });
-            } else {
-                list.innerHTML = `
+                    });
+                } else {
+                    list.innerHTML = `
                     <tr>
                         <td colspan="3" class="px-3.5 py-2.5 text-center text-slate-500 dark:text-zink-200">
                             No hospitals found for the selected criteria.
                         </td>
                     </tr>
                 `;
-            }
-        })
-        .catch(error => console.error('Error fetching hospitals:', error));
+                }
+            })
+            .catch(error => console.error('Error fetching hospitals:', error));
     });
+
 </script>
 @endsection

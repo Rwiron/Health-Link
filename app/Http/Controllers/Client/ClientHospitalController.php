@@ -32,4 +32,17 @@ class ClientHospitalController extends Controller
             'data' => $hospitals,
         ]);
     }
+
+    public function show2($id)
+    {
+        $hospital = Hospital::with(['insurance', 'services', 'doctors'])->findOrFail($id);
+
+        return view('client.hospital-detail', compact('hospital'));
+    }
+
+    public function show($id)
+    {
+        $hospital = Hospital::with(['insurance', 'services', 'doctors'])->findOrFail($id);
+        return view('client.hospital-detail', compact('hospital'));
+    }
 }

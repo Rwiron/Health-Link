@@ -28,7 +28,9 @@ class Hospital extends Model
         'longitude',
         'province',
         'district',
+        'map_iframe', // Add this
     ];
+
 
 
     /**
@@ -77,5 +79,27 @@ class Hospital extends Model
     public function setPhoneAttribute($value)
     {
         $this->attributes['phone'] = preg_replace('/\D/', '', $value);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    // public function doctors()
+    // {
+    //     return $this->hasMany(User::class)->where('role', 'doctor'); // Assuming 'User' model manages doctors
+    // }
+
+    public function doctors()
+    {
+        // Assuming 'role_id' 2 corresponds to the role of a doctor
+        return $this->hasMany(User::class, 'hospital_id')->where('role_id', 2);
+    }
+
+
+    public function insurance()
+    {
+        return $this->hasMany(InsuranceProvider::class, 'hospital_id');
     }
 }
