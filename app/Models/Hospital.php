@@ -54,9 +54,10 @@ class Hospital extends Model
     }
 
     // Relationship with Insurance Providers
+
     public function insuranceProviders()
     {
-        return $this->hasMany(InsuranceProvider::class);
+        return $this->belongsToMany(InsuranceProvider::class, 'insurance_hospital', 'hospital_id', 'insurance_id');
     }
 
     // Relationship with Appointments (through doctors)
@@ -98,8 +99,8 @@ class Hospital extends Model
     }
 
 
-    public function insurance()
-    {
-        return $this->hasMany(InsuranceProvider::class, 'hospital_id');
-    }
+    // public function insurance()
+    // {
+    //     return $this->hasMany(InsuranceProvider::class, 'hospital_id');
+    // }
 }

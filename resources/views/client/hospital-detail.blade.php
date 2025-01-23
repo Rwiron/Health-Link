@@ -48,9 +48,9 @@
                 <div class="card mt-5">
                     <div class="card-body">
                         <h5 class="mb-4 text-16 font-semibold">Insurance Providers</h5>
-                        @if($hospital->insurance->isNotEmpty())
+                        @if($hospital->insuranceProviders->isNotEmpty())
                         <div class="grid grid-cols-3 gap-4">
-                            @foreach($hospital->insurance as $insurance)
+                            @foreach($hospital->insuranceProviders as $insurance)
                             <div class="flex flex-col items-center p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-zink-600 transition-all">
                                 @if($insurance->image)
                                 <img src="{{ asset('storage/' . $insurance->image) }}" alt="{{ $insurance->name }}" class="h-16 w-16 rounded-full mb-2">
@@ -60,6 +60,12 @@
                                 </div>
                                 @endif
                                 <span class="text-slate-600 dark:text-zink-200 text-center">{{ $insurance->name }}</span>
+                                {{-- <small class="text-slate-400 dark:text-zink-300">
+                                    Covers:
+                                    @foreach($insurance->hospitals as $hosp)
+                                    {{ $hosp->name }}@if(!$loop->last), @endif
+                                    @endforeach
+                                </small> --}}
                             </div>
                             @endforeach
                         </div>
@@ -68,6 +74,9 @@
                         @endif
                     </div>
                 </div>
+
+
+
             </div>
 
             <div class="col-span-12 lg:col-span-8">

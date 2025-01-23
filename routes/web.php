@@ -66,12 +66,21 @@ Route::middleware(['auth', 'checkrole:SuperAdmin'])->group(function () {
         Route::delete('/{id}', [UserController::class, 'destroy'])->name('destroy');
     });
 
+    // Route::prefix('insurance')->group(function () {
+    //     Route::get('/', [InsuranceProviderController::class, 'index'])->name('insurance.index');
+    //     Route::post('/store', [InsuranceProviderController::class, 'store'])->name('insurance.store');
+    //     Route::put('/update/{id}', [InsuranceProviderController::class, 'update'])->name('insurance.update');
+    //     Route::delete('/delete/{id}', [InsuranceProviderController::class, 'destroy'])->name('insurance.destroy');
+    // });
+
+
     Route::prefix('insurance')->group(function () {
         Route::get('/', [InsuranceProviderController::class, 'index'])->name('insurance.index');
         Route::post('/store', [InsuranceProviderController::class, 'store'])->name('insurance.store');
         Route::put('/update/{id}', [InsuranceProviderController::class, 'update'])->name('insurance.update');
         Route::delete('/delete/{id}', [InsuranceProviderController::class, 'destroy'])->name('insurance.destroy');
     });
+
 
     Route::prefix('doctor')->name('doctor.')->group(function () {
         Route::get('/availability', [DoctorAvailabilityController::class, 'index'])->name('availability.index');

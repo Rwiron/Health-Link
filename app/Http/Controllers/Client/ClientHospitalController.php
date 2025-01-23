@@ -33,16 +33,27 @@ class ClientHospitalController extends Controller
         ]);
     }
 
-    public function show2($id)
+    // public function show2($id)
+    // {
+    //     $hospital = Hospital::with(['insurance', 'services', 'doctors'])->findOrFail($id);
+
+    //     return view('client.hospital-detail', compact('hospital'));
+    // }
+
+    public function show11($id)
     {
         $hospital = Hospital::with(['insurance', 'services', 'doctors'])->findOrFail($id);
-
         return view('client.hospital-detail', compact('hospital'));
     }
 
     public function show($id)
     {
-        $hospital = Hospital::with(['insurance', 'services', 'doctors'])->findOrFail($id);
+        $hospital = Hospital::with([
+            'services',
+            'doctors',
+            'insuranceProviders', // Use the correct relationship
+        ])->findOrFail($id);
+
         return view('client.hospital-detail', compact('hospital'));
     }
 }
