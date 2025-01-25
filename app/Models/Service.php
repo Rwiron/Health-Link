@@ -39,5 +39,8 @@ class Service extends Model
         return $query->where('category', $category);
     }
 
-    
+    public function doctors()
+    {
+        return $this->belongsToMany(User::class, 'doctor_service', 'service_id', 'doctor_id');
+    }
 }

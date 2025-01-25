@@ -9,12 +9,7 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class ServiceController extends Controller
 {
-    // public function index()
-    // {
-    //     $services = Service::with('hospital')->get();
-    //     return view('services.index', compact('services'));
-    // }
-
+   
     public function index()
     {
         $hospitals = Hospital::all(); // Fetch all hospitals

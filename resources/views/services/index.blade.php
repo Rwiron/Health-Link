@@ -107,40 +107,40 @@
 
                             <div>
                                 <label for="serviceCategory" class="block mb-2 text-sm font-medium">Category</label>
-                                <input list="categories" id="serviceCategory" name="category" class="form-input" placeholder="Enter or select a category" required>
-                                <datalist id="categories">
-                                    <option value="Consultation"></option>
-                                    <option value="Dentistry"></option>
-                                    <option value="Pediatrics"></option>
-                                    <option value="Rehabilitation"></option>
-                                    <option value="Surgery"></option>
-                                    <option value="Radiology"></option>
-                                    <option value="Pharmacy"></option>
-                                    <option value="Laboratory"></option>
-                                    <option value="Dermatology"></option>
-                                    <option value="Cardiology"></option>
-                                    <option value="Neurology"></option>
-                                    <option value="Orthopedics"></option>
-                                    <option value="ENT (Ear, Nose, Throat)"></option>
-                                    <option value="Gastroenterology"></option>
-                                    <option value="Oncology"></option>
-                                    <option value="Psychiatry"></option>
-                                    <option value="Ophthalmology"></option>
-                                    <option value="General Medicine"></option>
-                                    <option value="Urology"></option>
-                                    <option value="Gynecology"></option>
-                                    <option value="Nephrology"></option>
-                                    <option value="Pulmonology"></option>
-                                    <option value="Endocrinology"></option>
-                                    <option value="Rheumatology"></option>
-                                    <option value="Anesthesiology"></option>
-                                    <option value="Pathology"></option>
-                                    <option value="Emergency Medicine"></option>
-                                    <option value="Plastic Surgery"></option>
-                                    <option value="Pain Management"></option>
-                                    <option value="Sports Medicine"></option>
-                                    <option value="Infectious Disease"></option>
-                                </datalist>
+                                <select id="serviceCategory" name="category" class="form-input" required>
+                                    <option value="" disabled selected>Select a category</option>
+                                    <option value="Consultation">Consultation</option>
+                                    <option value="Dentistry">Dentistry</option>
+                                    <option value="Pediatrics">Pediatrics</option>
+                                    <option value="Rehabilitation">Rehabilitation</option>
+                                    <option value="Surgery">Surgery</option>
+                                    <option value="Radiology">Radiology</option>
+                                    <option value="Pharmacy">Pharmacy</option>
+                                    <option value="Laboratory">Laboratory</option>
+                                    <option value="Dermatology">Dermatology</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Neurology">Neurology</option>
+                                    <option value="Orthopedics">Orthopedics</option>
+                                    <option value="ENT (Ear, Nose, Throat)">ENT (Ear, Nose, Throat)</option>
+                                    <option value="Gastroenterology">Gastroenterology</option>
+                                    <option value="Oncology">Oncology</option>
+                                    <option value="Psychiatry">Psychiatry</option>
+                                    <option value="Ophthalmology">Ophthalmology</option>
+                                    <option value="General Medicine">General Medicine</option>
+                                    <option value="Urology">Urology</option>
+                                    <option value="Gynecology">Gynecology</option>
+                                    <option value="Nephrology">Nephrology</option>
+                                    <option value="Pulmonology">Pulmonology</option>
+                                    <option value="Endocrinology">Endocrinology</option>
+                                    <option value="Rheumatology">Rheumatology</option>
+                                    <option value="Anesthesiology">Anesthesiology</option>
+                                    <option value="Pathology">Pathology</option>
+                                    <option value="Emergency Medicine">Emergency Medicine</option>
+                                    <option value="Plastic Surgery">Plastic Surgery</option>
+                                    <option value="Pain Management">Pain Management</option>
+                                    <option value="Sports Medicine">Sports Medicine</option>
+                                    <option value="Infectious Disease">Infectious Disease</option>
+                                </select>
                             </div>
 
                             <div>
@@ -217,14 +217,13 @@
                                 </div>
                                 <div>
                                     <label for="editServiceCategory" class="block mb-2 text-sm font-medium">Category</label>
-                                    <input list="categories" id="editServiceCategory" name="category" class="form-input" placeholder="Enter or select a category" required>
-                                    <datalist id="categories">
-                                        <option value="Consultation"></option>
-                                        <option value="Dentistry"></option>
-                                        <option value="Pediatrics"></option>
-                                        <option value="Surgery"></option>
-                                        <!-- Add more categories as needed -->
-                                    </datalist>
+                                    <select id="editServiceCategory" name="category" class="form-input" required>
+                                        <option value="">Select a category</option>
+                                        <option value="Consultation">Consultation</option>
+                                        <option value="Dentistry">Dentistry</option>
+                                        <option value="Pediatrics">Pediatrics</option>
+                                        <option value="Surgery">Surgery</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label for="editServiceDescription" class="block mb-2 text-sm font-medium">Description</label>

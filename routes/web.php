@@ -19,6 +19,7 @@ use App\Http\Controllers\Designer\DesignerController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Client\ClientHospitalController;
+use App\Http\Controllers\Superadmin\SuperadminDoctorController;
 
 //---------------------Auth route--------------------
 
@@ -98,6 +99,14 @@ Route::middleware(['auth', 'checkrole:SuperAdmin'])->group(function () {
         Route::get('/{id}/edit', [ServiceController::class, 'edit'])->name('edit');
         Route::put('/{id}', [ServiceController::class, 'update'])->name('update');
         Route::delete('/{id}', [ServiceController::class, 'destroy'])->name('destroy');
+    });
+
+
+    Route::prefix('superadmin/doctors')->group(function () {
+        Route::get('/', [SuperadminDoctorController::class, 'index'])->name('superadmin.doctors.index');
+        Route::post('/store', [SuperadminDoctorController::class, 'store'])->name('superadmin.doctors.store');
+        Route::put('/{doctor}', [SuperadminDoctorController::class, 'update'])->name('superadmin.doctors.update');
+        Route::get('/services/{hospitalId}', [SuperadminDoctorController::class, 'getServicesByHospital']);
     });
 });
 

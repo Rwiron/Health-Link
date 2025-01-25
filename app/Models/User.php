@@ -71,4 +71,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(InsuranceProvider::class, 'insurance_id');
     }
+
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'doctor_service', 'doctor_id', 'service_id');
+    }
 }

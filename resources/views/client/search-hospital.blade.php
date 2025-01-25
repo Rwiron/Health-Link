@@ -27,6 +27,13 @@
                     <div class="card-body">
                         <h6 class="mb-4 text-16">Search Filters</h6>
                         <form id="hospitalSearchForm">
+
+                            <div class="mb-3">
+                                <label for="service" class="inline-block mb-2 text-base font-medium">Service</label>
+                                <input type="text" id="service" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Enter service name or category">
+                            </div>
+
+
                             <div class="mb-3">
                                 <label for="province" class="inline-block mb-2 text-base font-medium">Province</label>
                                 <select id="province" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
@@ -105,9 +112,56 @@
         }
     });
 
+    // document.getElementById('searchButton').addEventListener('click', function() {
+    //     const province = document.getElementById('province').value;
+    //     const district = document.getElementById('district').value;
+
+    //     fetch('/client/hospitals/search', {
+    //             method: 'POST'
+    //             , headers: {
+    //                 'Content-Type': 'application/json'
+    //                 , 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    //             }
+    //             , body: JSON.stringify({
+    //                 province
+    //                 , district
+    //             })
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             const list = document.getElementById('hospitalList');
+    //             list.innerHTML = '';
+
+    //             if (data.data.length > 0) {
+    //                 data.data.forEach(hospital => {
+    //                     list.innerHTML += `
+    //                     <tr class="border-b border-slate-200 dark:border-zink-500">
+    //                         <td class="px-3.5 py-2.5 text-slate-700 dark:text-zink-100">${hospital.name}</td>
+    //                         <td class="px-3.5 py-2.5 text-slate-700 dark:text-zink-100">${hospital.address}</td>
+    //                         <td class="px-3.5 py-2.5">
+    //                             <a href="/client/hospitals/${hospital.id}" class="text-custom-500 hover:text-custom-600">View Details</a>
+
+    //                         </td>
+    //                     </tr>
+    //                 `;
+    //                 });
+    //             } else {
+    //                 list.innerHTML = `
+    //                 <tr>
+    //                     <td colspan="3" class="px-3.5 py-2.5 text-center text-slate-500 dark:text-zink-200">
+    //                         No hospitals found for the selected criteria.
+    //                     </td>
+    //                 </tr>
+    //             `;
+    //             }
+    //         })
+    //         .catch(error => console.error('Error fetching hospitals:', error));
+    // });
+
     document.getElementById('searchButton').addEventListener('click', function() {
         const province = document.getElementById('province').value;
         const district = document.getElementById('district').value;
+        const service = document.getElementById('service').value;
 
         fetch('/client/hospitals/search', {
                 method: 'POST'
@@ -118,6 +172,7 @@
                 , body: JSON.stringify({
                     province
                     , district
+                    , service
                 })
             })
             .then(response => response.json())
@@ -127,25 +182,31 @@
 
                 if (data.data.length > 0) {
                     data.data.forEach(hospital => {
-                        list.innerHTML += `
-                        <tr class="border-b border-slate-200 dark:border-zink-500">
-                            <td class="px-3.5 py-2.5 text-slate-700 dark:text-zink-100">${hospital.name}</td>
-                            <td class="px-3.5 py-2.5 text-slate-700 dark:text-zink-100">${hospital.address}</td>
-                            <td class="px-3.5 py-2.5">
-                                <a href="/client/hospitals/${hospital.id}" class="text-custom-500 hover:text-custom-600">View Details</a>
+                        const servicesText = hospital.services.length > 0 ?
+                            `<div class="text-sm text-slate-500 mt-1">Services: ${hospital.services.join(', ')}</div>` :
+                            '';
 
-                            </td>
-                        </tr>
-                    `;
+                        list.innerHTML += `
+    <tr class="border-b border-slate-200 dark:border-zink-500">
+        <td class="px-3.5 py-2.5 text-slate-700 dark:text-zink-100">
+            ${hospital.name}
+            ${servicesText}
+        </td>
+        <td class="px-3.5 py-2.5 text-slate-700 dark:text-zink-100">${hospital.address}</td>
+        <td class="px-3.5 py-2.5">
+            <a href="/client/hospitals/${hospital.id}" class="text-custom-500 hover:text-custom-600">View Details</a>
+        </td>
+    </tr>
+    `;
                     });
                 } else {
                     list.innerHTML = `
-                    <tr>
-                        <td colspan="3" class="px-3.5 py-2.5 text-center text-slate-500 dark:text-zink-200">
-                            No hospitals found for the selected criteria.
-                        </td>
-                    </tr>
-                `;
+    <tr>
+        <td colspan="3" class="px-3.5 py-2.5 text-center text-slate-500 dark:text-zink-200">
+            No hospitals found for the selected criteria.
+        </td>
+    </tr>
+    `;
                 }
             })
             .catch(error => console.error('Error fetching hospitals:', error));
