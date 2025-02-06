@@ -73,8 +73,17 @@ class User extends Authenticatable
     }
 
 
-    public function services()
+    public function services1()
     {
         return $this->belongsToMany(Service::class, 'doctor_service', 'doctor_id', 'service_id');
     }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'doctor_service', 'doctor_id', 'service_id')
+            ->withPivot('description', 'status', 'appointment_fees')
+            ->withTimestamps(); // Tracks when pivot table records are created or updated
+    }
+
+
 }

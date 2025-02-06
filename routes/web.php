@@ -18,7 +18,9 @@ use App\Http\Controllers\Superadmin\SuperadminController;
 use App\Http\Controllers\Designer\DesignerController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Client\BookingController;
 use App\Http\Controllers\Client\ClientHospitalController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\Superadmin\SuperadminDoctorController;
 
 //---------------------Auth route--------------------
@@ -46,6 +48,7 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPass
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
+Route::get('/receipt/{id}', [ReceiptController::class, 'printReceipt'])->name('receipt.print');
 
 
 
@@ -104,9 +107,10 @@ Route::middleware(['auth', 'checkrole:SuperAdmin'])->group(function () {
 
     Route::prefix('superadmin/doctors')->group(function () {
         Route::get('/', [SuperadminDoctorController::class, 'index'])->name('superadmin.doctors.index');
-        Route::post('/store', [SuperadminDoctorController::class, 'store'])->name('superadmin.doctors.store');
+        Route::post('/', [SuperadminDoctorController::class, 'store'])->name('superadmin.doctors.store');
         Route::put('/{doctor}', [SuperadminDoctorController::class, 'update'])->name('superadmin.doctors.update');
         Route::get('/services/{hospitalId}', [SuperadminDoctorController::class, 'getServicesByHospital']);
+        Route::delete('/{doctor}', [SuperadminDoctorController::class, 'destroy'])->name('superadmin.doctors.destroy');
     });
 });
 
@@ -131,7 +135,19 @@ Route::middleware(['auth', 'checkrole:Doctor'])->group(function () {
     Route::get('/doctor/invoice/{id}', [DoctorReportController::class, 'invoice'])->name('doctor.invoice');
 
     Route::get('/doctor/report/{id?}', [DoctorReportController::class, 'index'])->name('doctor.report');
+    Route::post('/doctor/update-status', [DoctorController::class, 'updateStatus'])->name('doctor.updateStatus');
+
+
+
+    Route::post('/doctor/apply-discount/{id}', [DoctorController::class, 'applyDiscount'])->name('doctor.applyDiscount');
+
+
+
+
+    //Route::get('/receipt/download/{id}', [ReceiptController::class, 'downloadReceipt'])->name('receipt.download');
 });
+
+
 
 
 
@@ -152,6 +168,18 @@ Route::middleware(['auth', 'checkrole:Patient'])->group(function () {
         // Fix the show route
         Route::get('/{id}', [ClientHospitalController::class, 'show'])->name('show');
     });
+
+    Route::prefix('client/bookings')->group(function () {
+        Route::get('/', [BookingController::class, 'index'])->name('client.bookings.index');
+    });
+
+
+    Route::prefix('client/bookings')->group(function () {
+        Route::post('/store', [BookingController::class, 'store'])->name('client.bookings.store');
+
+        Route::get('/', [BookingController::class, 'index'])->name('client.bookings.index');
+        Route::delete('/cancel/{id}', [BookingController::class, 'cancel'])->name('client.bookings.cancel');
+    });
 });
 
 
@@ -171,6 +199,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
     Route::delete('/appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 });
+
+
 
 
 

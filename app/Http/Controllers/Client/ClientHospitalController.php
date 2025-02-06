@@ -89,12 +89,27 @@ class ClientHospitalController extends Controller
 
 
 
-    public function show($id)
+    public function show1($id)
     {
         $hospital = Hospital::with([
             'services',
             'doctors',
             'insuranceProviders', // Use the correct relationship
+        ])->findOrFail($id);
+
+        return view('client.hospital-detail', compact('hospital'));
+    }
+
+
+    public function show($id)
+    {
+        $hospital = Hospital::with([
+            'services',
+            'doctors.services' => function ($query) {
+                $query->select('services.id', 'services.name')
+                    ->withPivot('appointment_fees'); // Ensure appointment_fees is retrieved from pivot
+            },
+            'insuranceProviders',
         ])->findOrFail($id);
 
         return view('client.hospital-detail', compact('hospital'));
