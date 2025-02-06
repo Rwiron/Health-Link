@@ -119,8 +119,10 @@
                             <div class="xl:col-span-12">
                                 <label for="organizationType" class="inline-block mb-2 text-base font-medium">Organization Type</label>
                                 <select id="organizationType" name="organization_type" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500">
-                                    <option value="Private">Private</option>
-                                    <option value="Public">Public</option>
+                                    <option value="Public Hospital">Public Hospital</option>
+                                    <option value="Private Hospital">Private Hospital</option>
+                                    <option value="Public Clinic">Public Clinic</option>
+                                    <option value="Private Clinic">Private Clinic</option>
                                     <option value="Mixture">Mixture</option>
                                 </select>
                             </div>
@@ -206,11 +208,14 @@
                             </div>
                             <div class="xl:col-span-12">
                                 <label for="editOrganizationType" class="inline-block mb-2 text-base font-medium">Organization Type</label>
-                                <select id="editOrganizationType" name="organization_type" class="form-input">
-                                    <option value="Private">Private</option>
-                                    <option value="Public">Public</option>
+                                <select id="organizationType" name="organization_type" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500">
+                                    <option value="Public Hospital">Public Hospital</option>
+                                    <option value="Private Hospital">Private Hospital</option>
+                                    <option value="Public Clinic">Public Clinic</option>
+                                    <option value="Private Clinic">Private Clinic</option>
                                     <option value="Mixture">Mixture</option>
                                 </select>
+
                             </div>
                             <div class="xl:col-span-12">
                                 <label for="editHospitalLogo" class="inline-block mb-2 text-base font-medium">Logo</label>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Appointment\AppointmentController;
 use App\Http\Controllers\Doctor\DoctorAvailabilityController;
 use App\Http\Controllers\Doctor\DoctorController;
@@ -22,14 +23,30 @@ use App\Http\Controllers\Client\BookingController;
 use App\Http\Controllers\Client\ClientHospitalController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\Superadmin\SuperadminDoctorController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\Superadmin\SuperadminAnnouncementController;
+use App\Http\Controllers\FeedbackController;
+
+
+
 
 //---------------------Auth route--------------------
 
 
-Route::get('/', function () {
-    return view('client.index');
-});
+// Route::get('/', function () {
+//     $hospitals = Hospital::all();
+//     return view('client.index');
+// });
 
+
+
+
+
+
+
+
+
+Route::get('/', [ClientController::class, 'index'])->name('home');
 
 // Login routes
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -39,6 +56,10 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 // Register routes
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
+
+
+Route::get('/announcements', [AnnouncementController::class, 'index']);
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 
 
@@ -111,6 +132,28 @@ Route::middleware(['auth', 'checkrole:SuperAdmin'])->group(function () {
         Route::put('/{doctor}', [SuperadminDoctorController::class, 'update'])->name('superadmin.doctors.update');
         Route::get('/services/{hospitalId}', [SuperadminDoctorController::class, 'getServicesByHospital']);
         Route::delete('/{doctor}', [SuperadminDoctorController::class, 'destroy'])->name('superadmin.doctors.destroy');
+    });
+
+
+    Route::prefix('superadmin')->group(function () {
+        Route::get('/announcements', [SuperadminAnnouncementController::class, 'index'])->name('superadmin.announcements.index');
+        Route::post('/announcements', [SuperadminAnnouncementController::class, 'store'])->name('superadmin.announcements.store');
+        Route::put('/announcements/{id}', [SuperadminAnnouncementController::class, 'update'])->name('superadmin.announcements.update');
+        Route::delete('/announcements/{id}', [SuperadminAnnouncementController::class, 'destroy'])->name('superadmin.announcements.destroy');
+    });
+
+
+
+
+
+    Route::prefix('superadmin')->group(function () {
+        Route::get('/feedback', [FeedbackController::class, 'index'])->name('superadmin.feedback.index');
+        Route::delete('/feedback/{id}', [FeedbackController::class, 'destroy'])->name('superadmin.feedback.destroy');
+
+
+
+        Route::get('/feedback/{id}', [FeedbackController::class, 'show'])->name('superadmin.feedback.show');
+        Route::post('/feedback/{id}/reply', [FeedbackController::class, 'reply'])->name('superadmin.feedback.reply');
     });
 });
 
