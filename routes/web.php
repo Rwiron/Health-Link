@@ -149,9 +149,6 @@ Route::middleware(['auth', 'checkrole:SuperAdmin'])->group(function () {
     Route::prefix('superadmin')->group(function () {
         Route::get('/feedback', [FeedbackController::class, 'index'])->name('superadmin.feedback.index');
         Route::delete('/feedback/{id}', [FeedbackController::class, 'destroy'])->name('superadmin.feedback.destroy');
-
-
-
         Route::get('/feedback/{id}', [FeedbackController::class, 'show'])->name('superadmin.feedback.show');
         Route::post('/feedback/{id}/reply', [FeedbackController::class, 'reply'])->name('superadmin.feedback.reply');
     });

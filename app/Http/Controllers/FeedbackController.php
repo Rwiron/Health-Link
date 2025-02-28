@@ -52,11 +52,20 @@ class FeedbackController extends Controller
         $feedback->update(['is_active' => false]);
 
         // Send email notification
+        // Mail::raw($request->message, function ($mail) use ($feedback) {
+        //     $mail->to($feedback->email)
+        //         ->subject("Reply to Your Feedback")
+        //         ->from('admin@healthlink.com');
+        // });
+
+
+        // Send email
         Mail::raw($request->message, function ($mail) use ($feedback) {
             $mail->to($feedback->email)
                 ->subject("Reply to Your Feedback")
-                ->from('admin@healthlink.com');
+                ->from('admin@healthlink.com', 'HealthLink Management'); // 👈 Add sender name
         });
+
 
         return redirect()->back()->with('success', 'Reply sent successfully.');
     }
@@ -80,5 +89,15 @@ class FeedbackController extends Controller
         $feedback->update(['is_active' => true]);
 
         return redirect()->back()->with('success', 'Your reply has been sent.');
+    }
+
+
+
+    public function destroy($id)
+    {
+        $feedback = Feedback::findOrFail($id);
+        $feedback->delete();
+
+        return redirect()->back()->with('success', 'Feedback deleted successfully.');
     }
 }
